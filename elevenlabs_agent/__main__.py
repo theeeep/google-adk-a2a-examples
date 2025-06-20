@@ -10,14 +10,12 @@ from a2a.server.request_handlers import DefaultRequestHandler
 from a2a.server.tasks import InMemoryTaskStore
 from a2a.types import AgentCapabilities, AgentCard, AgentSkill
 
-# from dotenv import load_dotenv
 # ADK imports
 from google.adk.artifacts import InMemoryArtifactService
 from google.adk.memory.in_memory_memory_service import InMemoryMemoryService
 from google.adk.runners import Runner
 from google.adk.sessions import InMemorySessionService
 
-# from elevenlabs_agent import agent_executor
 from elevenlabs_agent.agent import create_elevenlabs_agent
 from elevenlabs_agent.agent_executor import ElevenLabsADKAgentExecutor
 
@@ -55,10 +53,11 @@ def main(host: str, port: int) -> None:
         description="Takes input text and returns an audio file of the spoken text using ElevenLabs.",
         tags=["tts", "audio", "speech", "elevenlabs"],
         examples=[
-            "What is the weather like today?",
-            "Please read the following text out loud: The quick brown fox jumped over the lazy dog.",
+            "Say 'Hello, world!'",
+            "Convert the following to speech: Today is a wonderful day.",
         ],
     )
+
     agent_card = AgentCard(
         name="ElevenLabs TTS Agent",
         description="Provides text-to-speech services using ElevenLabs.",
@@ -100,9 +99,9 @@ def main(host: str, port: int) -> None:
         agent_card=agent_card,
         http_handler=request_handler,
     )
+
     logger.info(f"Starting ElevenLabs Agent server on http://{host}:{port}")
     logger.info(f"Agent Name: {agent_card.name}, Version: {agent_card.version}")
-
     if agent_card.skills:
         for skill in agent_card.skills:
             logger.info(f"  Skill: {skill.name} (ID: {skill.id}, Tags: {skill.tags})")
