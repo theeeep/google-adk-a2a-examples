@@ -22,7 +22,7 @@ pip install uv
 ### 1. Clone the repository:
 
 ```bash
-git clone <https://github.com/theeeep/google-adk-a2a-examples>
+git clone https://github.com/theeeep/google-adk-a2a-examples
 cd google-adk-a2a-examples
 ```
 
